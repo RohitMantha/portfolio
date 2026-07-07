@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M Naga Vijay Rohit - AI Engineer Resume</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #111827;
+            --accent: #2563eb;
+            --text: #374151;
+            --text-light: #6b7280;
+            --border: #d1d5db;
+        }
+
+        @page {
+            size: A4;
+            margin: 12mm 15mm 12mm 15mm;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            color: var(--text);
+            background: #fff;
+            font-size: 9.5pt;
+            line-height: 1.45;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Screen preview */
+        @media screen {
+            body { background: #f3f4f6; }
+            .resume {
+                width: 210mm;
+                min-height: 297mm;
+                background: #fff;
+                margin: 20px auto;
+                padding: 12mm 15mm;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }
+        }
+
+        @media print {
+            body { background: #fff; }
+            .resume { width: 100%; padding: 0; margin: 0; box-shadow: none; }
+            a { color: var(--text-light) !important; text-decoration: none !important; }
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .header h1 {
+            font-size: 20pt;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .tagline {
+            font-size: 10pt;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .contact {
+            font-size: 9pt;
+            color: var(--text-light);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+
+        .contact a { color: var(--text-light); text-decoration: none; }
+        .sep { color: var(--border); }
+
+        /* ── Sections ── */
+        .section {
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 3px;
+            margin-bottom: 6px;
+        }
+
+        /* ── Summary ── */
+        .summary p {
+            font-size: 9.5pt;
+        }
+
+        /* ── Skills ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            row-gap: 4px;
+            font-size: 9pt;
+        }
+
+        .skills-grid .label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .skills-grid .value {
+            color: var(--text);
+        }
+
+        /* ── Experience ── */
+        .exp-item {
+            margin-bottom: 8px;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .exp-header .company {
+            font-weight: 700;
+            font-size: 10pt;
+            color: var(--primary);
+        }
+
+        .exp-header .dates {
+            font-size: 9pt;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .exp-subheader {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .exp-subheader .title {
+            font-weight: 600;
+            font-size: 9.5pt;
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .exp-subheader .location {
+            font-size: 9pt;
+            color: var(--text-light);
+        }
+
+        ul {
+            padding-left: 18px;
+        }
+
+        li {
+            margin-bottom: 3px;
+        }
+
+        .kw { font-weight: 600; color: var(--primary); }
+
+        /* ── Projects ── */
+        .proj-item {
+            margin-bottom: 8px;
+        }
+
+        .proj-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .proj-name {
+            font-weight: 700;
+            font-size: 9.5pt;
+            color: var(--primary);
+        }
+
+        .proj-stack {
+            font-size: 8.5pt;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ── Education ── */
+        .edu-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .edu-row .school { font-weight: 600; color: var(--primary); }
+        .edu-row .year { font-size: 9pt; color: var(--text-light); }
+        .edu-detail { color: var(--text-light); }
+    </style>
+</head>
+<body>
+<div class="resume">
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>M Naga Vijay Rohit</h1>
+        <div class="tagline">AI Engineer — RAG &amp; LLM Systems · NLP · Agentic AI · Production ML</div>
+        <div class="contact">
+            <span>+91-9493538595</span><span class="sep">|</span>
+            <a href="mailto:mantharohit03@gmail.com">mantharohit03@gmail.com</a><span class="sep">|</span>
+            <a href="https://linkedin.com/in/rohit-mantha">linkedin.com/in/rohit-mantha</a><span class="sep">|</span>
+            <a href="https://github.com/rohit-mantha">github.com/rohit-mantha</a>
+        </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <section class="section summary">
+        <div class="section-title">Professional Summary</div>
+        <p>AI Engineer with hands-on experience building <span class="kw">RAG pipelines</span>, designing <span class="kw">agentic AI workflows</span>, and deploying <span class="kw">LLM-powered automation</span>. Engineered document intelligence systems processing 1,200+ financial documents daily, built <span class="kw">multi-agent orchestration platforms</span>, and achieved <span class="kw">86% retrieval accuracy</span> on production RAG systems.</p>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section">
+        <div class="section-title">Technical Skills</div>
+        <div class="skills-grid">
+            <span class="label">AI/ML &amp; LLMs</span>
+            <span class="value">RAG Pipelines, LangChain, LangGraph, Prompt Engineering, Agentic AI, Model Fine-Tuning, LlamaIndex, OpenAI / Gemini</span>
+            <span class="label">NLP &amp; Data</span>
+            <span class="value">PyTorch, HuggingFace, Sentence-Transformers, ChromaDB, Pinecone, FAISS, PostgreSQL, Redis</span>
+            <span class="label">Languages</span>
+            <span class="value">Python, JavaScript / TypeScript, C#, SQL</span>
+            <span class="label">MLOps &amp; Tools</span>
+            <span class="value">FastAPI, Docker, Kubernetes, Git, CI/CD, Azure DevOps, Next.js, React</span>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section">
+        <div class="section-title">Experience</div>
+
+        <!-- Sciforn -->
+        <div class="exp-item">
+            <div class="exp-header">
+                <span class="company">Sciforn Solutions Pvt. Ltd</span>
+                <span class="dates">Dec 2025 – Present</span>
+            </div>
+            <div class="exp-subheader">
+                <span class="title">AI Engineer</span>
+                <span class="location">Pune, India</span>
+            </div>
+            <ul>
+                <li>Deployed a <span class="kw">production RAG pipeline</span> using <span class="kw">LangChain</span> and <span class="kw">ChromaDB</span> to automate unstructured financial document extraction, reducing manual review time by <span class="kw">65%</span>.</li>
+                <li>Engineered <span class="kw">agentic AI workflows</span> via <span class="kw">LangGraph</span> to orchestrate multi-step document processing, enabling autonomous parsing of <span class="kw">1,200+ PDFs daily</span>.</li>
+                <li>Implemented <span class="kw">hybrid retrieval</span> (dense + BM25 + re-ranking), achieving <span class="kw">86% Context Precision</span> and <span class="kw">91% Faithfulness</span> on RAGAS benchmarks.</li>
+                <li>Deployed LLM microservices using <span class="kw">FastAPI + Docker</span>, achieving <span class="kw">p95 latency under 800ms</span> for 500+ concurrent requests.</li>
+            </ul>
+        </div>
+
+        <!-- LTIMindtree -->
+        <div class="exp-item">
+            <div class="exp-header">
+                <span class="company">LTIMINDTREE</span>
+                <span class="dates">Jun 2025 – Dec 2025</span>
+            </div>
+            <div class="exp-subheader">
+                <span class="title">MLOps Engineer</span>
+                <span class="location">Pune, India</span>
+            </div>
+            <ul>
+                <li>Designed automated <span class="kw">ML model validation pipelines</span> using Azure DevOps, reducing deployment regression cycles by <span class="kw">30%</span> before production releases.</li>
+                <li>Built <span class="kw">data integrity frameworks</span> for ML training data during backend migrations, seamlessly processing <span class="kw">2M+ records</span> with zero data loss.</li>
+                <li>Implemented <span class="kw">CI/CD pipelines</span> for containerized model deployment and monitored model drift with custom alerting dashboards.</li>
+            </ul>
+        </div>
+
+        <!-- MDI AI -->
+        <div class="exp-item">
+            <div class="exp-header">
+                <span class="company">MDI AI Detection LLC</span>
+                <span class="dates">Dec 2024 – May 2025</span>
+            </div>
+            <div class="exp-subheader">
+                <span class="title">ML Engineer — Intern</span>
+                <span class="location">Remote, USA</span>
+            </div>
+            <ul>
+                <li>Optimized <span class="kw">ML inference pipelines</span> for edge deployment using model quantization (FP16/INT8), achieving <span class="kw">3.2x speedup</span> while maintaining 96%+ accuracy.</li>
+                <li>Deployed scalable real-time <span class="kw">inference APIs</span> processing <span class="kw">30+ concurrent data streams</span> using FastAPI with async processing.</li>
+                <li>Implemented <span class="kw">active learning</span> with human-in-the-loop workflows, reducing false positives by <span class="kw">35%</span> with only 15% additional labeled data.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section">
+        <div class="section-title">Projects</div>
+
+        <div class="proj-item">
+            <div class="proj-header">
+                <span class="proj-name">Enterprise RAG Pipeline for Document Intelligence</span>
+                <span class="proj-stack">LangChain · ChromaDB · FastAPI</span>
+            </div>
+            <ul>
+                <li>End-to-end <span class="kw">RAG system</span> over 50K+ documents with hybrid retrieval, achieving <span class="kw">78.2% Context Precision</span>.</li>
+                <li>Production <span class="kw">FastAPI</span> deployment with streaming responses, query caching, and token-usage monitoring.</li>
+            </ul>
+        </div>
+
+        <div class="proj-item">
+            <div class="proj-header">
+                <span class="proj-name">Multi-Agent AI Orchestration Platform</span>
+                <span class="proj-stack">LangGraph · CrewAI · OpenAI API</span>
+            </div>
+            <ul>
+                <li><span class="kw">Agentic AI platform</span> with autonomous agents for research and analysis, reducing complex task times to <span class="kw">&lt;3 minutes</span>.</li>
+                <li>Human-in-the-loop validation with approval gates, configurable guardrails, and per-agent cost tracking.</li>
+            </ul>
+        </div>
+        
+        <div class="proj-item">
+            <div class="proj-header">
+                <span class="proj-name">AI Finance Assistant — Document Q&amp;A</span>
+                <span class="proj-stack">Gemini API · ChromaDB · LangChain</span>
+            </div>
+            <ul>
+                <li>Intelligent Q&amp;A system enabling natural language queries over financial reports using <span class="kw">512-token semantic chunking</span>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section">
+        <div class="section-title">Education</div>
+        <div class="edu-row">
+            <span class="school">Vellore Institute of Technology, Chennai</span>
+            <span class="year">2021 – 2025</span>
+        </div>
+        <div class="edu-detail">Bachelor of Technology in Computer Science and Engineering (AI &amp; ML) — CGPA: 8.75 / 10</div>
+    </section>
+
+</div>
+</body>
+</html>

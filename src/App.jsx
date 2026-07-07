@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Database, Server, Brain, Code, Brackets, ChevronRight, Mail } from 'lucide-react';
+import { Terminal, Database, Server, Brain, Code, Brackets, ChevronRight, Mail, FileText, Send, CheckCircle, Workflow, Cpu } from 'lucide-react';
 import './index.css';
 
 const App = () => {
   // Terminal Typing Effect State
   const [terminalText, setTerminalText] = useState('');
-  const fullText = "Fine-tuning Llama-3 on financial data... [██████████░░] 85%";
+  const fullText = "Building an open-source RAG tool for financial APIs... [██████████░░] 85%";
   
   useEffect(() => {
     let i = 0;
@@ -20,6 +20,33 @@ const App = () => {
     return () => clearInterval(typingInterval);
   }, []);
 
+  // Form State
+  const [result, setResult] = useState("");
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
+
+    // Provide your Web3Forms Access Key here
+    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setResult("Message sent successfully!");
+      event.target.reset();
+    } else {
+      console.log("Error", data);
+      setResult(data.message);
+    }
+  };
+
   return (
     <>
       <div className="bg-mesh"></div>
@@ -29,16 +56,30 @@ const App = () => {
         <div className="nav-content">
           <a href="#" className="logo">rohit<span className="gradient-text">.ai</span></a>
           <div className="nav-links">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
+            <div className="availability-badge" style={{ marginRight: '1rem', display: 'none' }}>
+               {/* Display block on desktop, hidden on mobile via CSS usually, but we'll leave it inline for now */}
+               <div className="pulse-dot"></div>
+               Available for Freelance
+            </div>
+            <a href="#services">Services</a>
             <a href="#projects">Projects</a>
+            <a href="#resume">Resume</a>
+            <a href="#contact" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '0.9rem', color: 'white' }}>Hire Me</a>
           </div>
         </div>
       </nav>
 
       <main>
         {/* Hero Section */}
-        <section id="about" className="container" style={{ paddingTop: '12rem' }}>
+        <section id="about" className="container" style={{ paddingTop: '10rem' }}>
+          
+          <div style={{ marginBottom: '2rem' }}>
+            <div className="availability-badge">
+               <div className="pulse-dot"></div>
+               Available for Full-Time Roles & Freelance Projects
+            </div>
+          </div>
+
           <h1 style={{ fontSize: '4rem', lineHeight: '1.1', marginBottom: '1.5rem' }}>
             Hi, I'm Rohit.<br />
             I build <span className="gradient-text">Production AI.</span>
@@ -48,90 +89,79 @@ const App = () => {
             I take LLMs out of notebooks and put them into reliable enterprise systems.
           </p>
           
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '5rem' }}>
-            <a href="#projects" className="btn btn-primary">
-              View My Work <ChevronRight size={18} />
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '5rem', flexWrap: 'wrap' }}>
+            <a href="#services" className="btn btn-primary">
+              See What I Build <ChevronRight size={18} />
             </a>
-            <a href="mailto:mantharohit03@gmail.com" className="btn btn-secondary">
-              Contact Me
+            <a href="#resume" className="btn btn-secondary">
+              <FileText size={18} /> View Resume
             </a>
           </div>
 
           {/* Terminal Component */}
           <div className="terminal">
-            <div className="terminal-header">
-              <div className="terminal-dot dot-red"></div>
-              <div className="terminal-dot dot-yellow"></div>
-              <div className="terminal-dot dot-green"></div>
+            <div className="terminal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <div className="terminal-dot dot-red"></div>
+                <div className="terminal-dot dot-yellow"></div>
+                <div className="terminal-dot dot-green"></div>
+              </div>
+              <div style={{ fontSize: '0.8rem', color: '#9ca3af', fontFamily: 'var(--font-body)', fontWeight: 500 }}>
+                bash — Currently Building & Learning
+              </div>
             </div>
             <div className="log-line">
-              <span className="log-time">[09:41:22]</span>
-              <span className="log-prefix">system:</span>
-              <span className="log-info">Initializing AI Agent Protocol...</span>
+              <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai-portfolio:~$</span>
+              <span className="log-info" style={{ marginLeft: '8px' }}>cat currently_learning.txt</span>
+            </div>
+            <div className="log-line" style={{ marginBottom: '1.2rem', color: '#d1d5db', fontStyle: 'italic' }}>
+              &gt; Exploring advanced multi-agent orchestration with LangGraph and CrewAI.
             </div>
             <div className="log-line">
-              <span className="log-time">[09:41:23]</span>
-              <span className="log-prefix">auth:</span>
-              <span className="log-success">Vector DB connected successfully.</span>
+              <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai-portfolio:~$</span>
+              <span className="log-info" style={{ marginLeft: '8px' }}>./execute_current_project.sh</span>
             </div>
             <div className="log-line">
-              <span className="log-time">[09:41:25]</span>
-              <span className="log-prefix">build:</span>
-              <span style={{ color: '#f3f4f6' }}>{terminalText}</span><span className="cursor"></span>
+              <span className="log-success">➜</span>
+              <span style={{ color: '#f3f4f6', marginLeft: '8px' }}>{terminalText}</span><span className="cursor"></span>
             </div>
           </div>
         </section>
 
-        {/* Experience Section */}
-        <section id="experience" className="container">
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}><span className="gradient-text">Experience</span></h2>
+        {/* Services Section (New for Freelance) */}
+        <section id="services" className="container">
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}><span className="gradient-text">What I Build</span></h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '3rem', fontSize: '1.1rem', maxWidth: '600px' }}>
+            Whether you are hiring for a full-time role or need a freelance expert, I deliver production-ready AI infrastructure.
+          </p>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            {/* Sciforn */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+            
             <div className="glass-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: '1.4rem' }}>AI Engineer</h3>
-                  <div style={{ color: 'var(--accent-blue)', fontWeight: 600 }}>Sciforn Solutions Pvt. Ltd</div>
-                </div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Dec 2025 – Present</div>
-              </div>
-              <ul style={{ color: 'var(--text-muted)', paddingLeft: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <li>Deployed a production RAG pipeline using LangChain and ChromaDB to automate unstructured financial document extraction, reducing manual review time by 65%.</li>
-                <li>Engineered agentic AI workflows via LangGraph to orchestrate multi-step document processing, enabling autonomous parsing of 1,200+ PDFs daily.</li>
-                <li>Implemented hybrid retrieval (dense + BM25 + re-ranking), achieving 86% Context Precision and 91% Faithfulness on RAGAS benchmarks.</li>
-              </ul>
+              <Database size={32} color="var(--accent-blue)" style={{ marginBottom: '1rem' }} />
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem' }}>Custom RAG Pipelines</h3>
+              <p style={{ color: 'var(--text-muted)' }}>
+                I build intelligent retrieval systems that connect LLMs to your private enterprise data (PDFs, Databases, Confluence). 
+                I focus on hybrid retrieval and re-ranking to stop hallucinations.
+              </p>
             </div>
 
-            {/* LTIMindtree */}
             <div className="glass-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: '1.4rem' }}>MLOps Engineer</h3>
-                  <div style={{ color: 'var(--accent-blue)', fontWeight: 600 }}>LTIMINDTREE</div>
-                </div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Jun 2025 – Dec 2025</div>
-              </div>
-              <ul style={{ color: 'var(--text-muted)', paddingLeft: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <li>Designed automated ML model validation pipelines using Azure DevOps, reducing deployment regression cycles by 30% before production releases.</li>
-                <li>Built data integrity frameworks for ML training data during backend migrations, seamlessly processing 2M+ records with zero data loss.</li>
-              </ul>
+              <Workflow size={32} color="var(--accent-purple)" style={{ marginBottom: '1rem' }} />
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem' }}>Agentic AI Workflows</h3>
+              <p style={{ color: 'var(--text-muted)' }}>
+                I design autonomous multi-agent systems using LangGraph that can research, plan, and execute complex, multi-step tasks without human intervention.
+              </p>
             </div>
-            
-            {/* MDI AI */}
+
             <div className="glass-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <div>
-                  <h3 style={{ margin: 0, fontSize: '1.4rem' }}>ML Engineer Intern</h3>
-                  <div style={{ color: 'var(--accent-blue)', fontWeight: 600 }}>MDI AI Detection LLC</div>
-                </div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Dec 2024 – May 2025</div>
-              </div>
-              <ul style={{ color: 'var(--text-muted)', paddingLeft: '1.2rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <li>Optimized ML inference pipelines for edge deployment using model quantization (FP16/INT8), achieving 3.2x speedup while maintaining 96%+ accuracy.</li>
-                <li>Deployed scalable real-time inference APIs processing 30+ concurrent data streams using FastAPI.</li>
-              </ul>
+              <Cpu size={32} color="#10b981" style={{ marginBottom: '1rem' }} />
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '1rem' }}>ML Inference & APIs</h3>
+              <p style={{ color: 'var(--text-muted)' }}>
+                I don't leave models in Jupyter Notebooks. I optimize them (Quantization/ONNX), wrap them in scalable FastAPI microservices, and containerize them with Docker.
+              </p>
             </div>
+
           </div>
         </section>
 
@@ -141,7 +171,6 @@ const App = () => {
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
             
-            {/* Project 1 */}
             <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
               <Brain size={32} color="var(--accent-blue)" style={{ marginBottom: '1rem' }} />
               <h3 style={{ fontSize: '1.3rem' }}>Enterprise RAG Pipeline</h3>
@@ -158,7 +187,6 @@ const App = () => {
               </a>
             </div>
 
-            {/* Project 2 */}
             <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
               <Server size={32} color="var(--accent-purple)" style={{ marginBottom: '1rem' }} />
               <h3 style={{ fontSize: '1.3rem' }}>Multi-Agent AI Platform</h3>
@@ -175,65 +203,77 @@ const App = () => {
               </a>
             </div>
 
-            {/* Project 3 */}
-            <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <Database size={32} color="#10b981" style={{ marginBottom: '1rem' }} />
-              <h3 style={{ fontSize: '1.3rem' }}>AI Finance Assistant</h3>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem', flexGrow: 1 }}>
-                Intelligent Q&A system enabling natural language queries over financial reports using 512-token semantic chunking.
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
-                <span style={{ fontSize: '0.8rem', background: 'rgba(255,255,255,0.1)', padding: '4px 10px', borderRadius: '12px' }}>Gemini API</span>
-                <span style={{ fontSize: '0.8rem', background: 'rgba(255,255,255,0.1)', padding: '4px 10px', borderRadius: '12px' }}>Sentence-Transformers</span>
-              </div>
-              <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center', fontSize: '0.9rem' }}>
-                <Code size={16} /> Source Code
-              </a>
-            </div>
-
           </div>
         </section>
 
-        {/* Skills Section */}
-        <section className="container">
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem' }}><span className="gradient-text">Core Competencies</span></h2>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-            {['RAG Pipelines', 'LangChain', 'LangGraph', 'Agentic AI', 'Prompt Engineering', 'Model Fine-Tuning', 'LlamaIndex', 'PyTorch', 'HuggingFace', 'ChromaDB', 'FastAPI', 'Docker', 'Python', 'MLOps'].map(skill => (
-              <div key={skill} style={{ 
-                background: 'rgba(255,255,255,0.05)', 
-                border: '1px solid rgba(255,255,255,0.1)', 
-                padding: '12px 24px', 
-                borderRadius: '30px',
-                fontSize: '1rem',
-                fontWeight: 500
-              }}>
-                {skill}
+        {/* Resume Embed Section */}
+        <section id="resume" className="container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem' }}>
+            <div>
+              <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}><span className="gradient-text">Resume</span></h2>
+              <p style={{ color: 'var(--text-muted)' }}>My complete professional background and education.</p>
+            </div>
+            <a href="/resume.html" target="_blank" className="btn btn-secondary">
+              Open Full Screen
+            </a>
+          </div>
+          
+          <div style={{ 
+            width: '100%', 
+            height: '800px', 
+            borderRadius: '16px', 
+            overflow: 'hidden', 
+            border: '1px solid var(--border)',
+            background: '#fff'
+          }}>
+            <iframe 
+              src="/resume.html" 
+              title="Rohit Resume"
+              style={{ width: '100%', height: '100%', border: 'none' }}
+            ></iframe>
+          </div>
+        </section>
+
+        {/* Contact Form Section */}
+        <section id="contact" className="container" style={{ paddingBottom: '8rem' }}>
+          <div className="glass-card" style={{ maxWidth: '700px', margin: '0 auto', padding: '3rem' }}>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem', textAlign: 'center' }}><span className="gradient-text">Let's Work Together</span></h2>
+            <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '2.5rem' }}>
+              Whether you have a freelance project or a full-time opportunity, drop me a message and I'll get back to you within 24 hours.
+            </p>
+            
+            <form onSubmit={onSubmit}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                <div>
+                  <label className="form-label">Your Name</label>
+                  <input type="text" name="name" className="form-input" required placeholder="John Doe" />
+                </div>
+                <div>
+                  <label className="form-label">Your Email</label>
+                  <input type="email" name="email" className="form-input" required placeholder="john@company.com" />
+                </div>
               </div>
-            ))}
+              
+              <div className="form-group">
+                <label className="form-label">Project Details / Message</label>
+                <textarea name="message" className="form-textarea" required placeholder="Tell me about your AI needs..."></textarea>
+              </div>
+
+              <input type="hidden" name="subject" value="New Inquiry from AI Portfolio!" />
+              
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                <Send size={18} /> Send Message
+              </button>
+            </form>
+            
+            {result && (
+              <div style={{ marginTop: '1.5rem', textAlign: 'center', padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', color: result.includes("success") ? '#10b981' : 'var(--text-main)' }}>
+                {result}
+              </div>
+            )}
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer style={{ borderTop: '1px solid var(--border)', padding: '4rem 0', marginTop: '4rem', textAlign: 'center' }}>
-        <div className="container">
-          <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Let's build something intelligent.</h3>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginBottom: '3rem' }}>
-            <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s', textDecoration: 'none' }}>
-              GitHub
-            </a>
-            <a href="https://linkedin.com/in/rohit-mantha" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s', textDecoration: 'none' }}>
-              LinkedIn
-            </a>
-            <a href="mailto:mantharohit03@gmail.com" style={{ color: 'var(--text-muted)', transition: 'color 0.2s' }}>
-              <Mail size={28} />
-            </a>
-          </div>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            &copy; 2026 M Naga Vijay Rohit. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </>
   );
 };
