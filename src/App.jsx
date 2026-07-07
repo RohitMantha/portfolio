@@ -259,7 +259,7 @@ const App = () => {
             </p>
             
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <a href="/resume.html" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '12px 24px', fontSize: '1.1rem' }}>
+              <a href="resume.html" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '12px 24px', fontSize: '1.1rem' }}>
                 <ExternalLink size={20} /> View Resume
               </a>
             </div>
