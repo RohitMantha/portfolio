@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Database, Server, Brain, Code, ChevronRight, Send, Briefcase, MessageSquare, Zap, FileText, ExternalLink, Download, Phone, Rocket, Shield } from 'lucide-react';
+import { Database, Server, Brain, Code, ChevronRight, Send, Briefcase, Zap, FileText, ExternalLink, Download, Phone, Rocket, Shield } from 'lucide-react';
 import './index.css';
 
 const App = () => {
@@ -278,47 +278,6 @@ const App = () => {
           </div>
         </section>
 
-        {/* ═══════════════════ TESTIMONIALS ═══════════════════ */}
-        <section id="testimonials" className="container">
-          <div className="section-card">
-            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem', textAlign: 'center' }}><span className="gradient-text">What People Say</span></h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', textAlign: 'center', maxWidth: '550px', margin: '0 auto 3rem' }}>
-              Feedback from colleagues and collaborators I've worked with.
-            </p>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-              
-              <div className="testimonial-card">
-                <div className="quote-mark">"</div>
-                <blockquote>
-                  "Rohit built our document intelligence pipeline from scratch. He didn't just write code — he understood the business problem and designed a system that reduced our manual review from 6 hours to under 2. Highly recommended."
-                </blockquote>
-                <div className="testimonial-author">
-                  <div className="author-avatar" style={{ background: 'rgba(59, 130, 246, 0.15)', color: 'var(--accent-blue)' }}>S</div>
-                  <div className="author-info">
-                    <div className="author-name">Senior Engineer</div>
-                    <div className="author-role">Sciforn Solutions</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="testimonial-card">
-                <div className="quote-mark">"</div>
-                <blockquote>
-                  "What sets Rohit apart is his ability to move fast without breaking things. He delivered a working multi-agent prototype in under two weeks that would have taken most teams a month. Excellent problem-solver."
-                </blockquote>
-                <div className="testimonial-author">
-                  <div className="author-avatar" style={{ background: 'rgba(139, 92, 246, 0.15)', color: 'var(--accent-purple)' }}>M</div>
-                  <div className="author-info">
-                    <div className="author-name">Project Lead</div>
-                    <div className="author-role">MDI AI Detection LLC</div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
 
         {/* ═══════════════════ RESUME ═══════════════════ */}
         <section id="resume" className="container">
@@ -351,8 +310,8 @@ const App = () => {
               <a href="resume.html" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '12px 24px', fontSize: '1.1rem' }}>
                 <ExternalLink size={20} /> View Resume
               </a>
-              <a href="resume.html" download="Rohit_Mantha_AI_Engineer_Resume.html" className="btn btn-secondary" style={{ padding: '12px 24px', fontSize: '1.1rem' }}>
-                <Download size={20} /> Download
+              <a href="Rohit_AI_Engineer_Resume.pdf" download="Rohit_Mantha_AI_Engineer_Resume.pdf" className="btn btn-secondary" style={{ padding: '12px 24px', fontSize: '1.1rem' }}>
+                <Download size={20} /> Download PDF
               </a>
             </div>
           </div>
