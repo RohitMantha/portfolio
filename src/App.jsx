@@ -188,7 +188,7 @@ const App = () => {
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>ChromaDB</span>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>FastAPI</span>
                 </div>
-                <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                <a href="https://github.com/RohitMantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
                   <Code size={18} /> Source Code
                 </a>
               </div>
@@ -205,7 +205,7 @@ const App = () => {
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>CrewAI</span>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>OpenAI</span>
                 </div>
-                <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                <a href="https://github.com/RohitMantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
                   <Code size={18} /> Source Code
                 </a>
               </div>
@@ -222,7 +222,7 @@ const App = () => {
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Transformers</span>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Pinecone</span>
                 </div>
-                <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                <a href="https://github.com/RohitMantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
                   <Code size={18} /> Source Code
                 </a>
               </div>
@@ -312,10 +312,10 @@ const App = () => {
         <div className="container">
           <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Let's build something intelligent.</h3>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginBottom: '3rem' }}>
-            <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s', textDecoration: 'none', fontWeight: 500 }}>
+            <a href="https://github.com/RohitMantha" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s', textDecoration: 'none', fontWeight: 500 }}>
               GitHub
             </a>
-            <a href="https://linkedin.com/in/rohit-mantha" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s', textDecoration: 'none', fontWeight: 500 }}>
+            <a href="https://linkedin.com/in/RohitMantha" target="_blank" rel="noreferrer" style={{ color: 'var(--text-muted)', transition: 'color 0.2s', textDecoration: 'none', fontWeight: 500 }}>
               LinkedIn
             </a>
           </div>
