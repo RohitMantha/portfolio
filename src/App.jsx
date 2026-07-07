@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Database, Server, Brain, Code, ChevronRight, Send, Briefcase, MessageSquare, Zap, FileText, Download, ExternalLink } from 'lucide-react';
+import { Terminal, Database, Server, Brain, Code, ChevronRight, Send, Briefcase, MessageSquare, Zap, FileText, ExternalLink } from 'lucide-react';
 import './index.css';
 
 const App = () => {
@@ -72,22 +72,22 @@ const App = () => {
         {/* Hero Section */}
         <section id="about" className="container" style={{ paddingTop: '10rem' }}>
           
-          <div style={{ marginBottom: '2rem' }}>
+          <div style={{ marginBottom: '1.5rem' }}>
             <div className="availability-badge">
                <div className="pulse-dot"></div>
                Available for Full-Time Roles & Freelance Projects
             </div>
           </div>
 
-          <h1 style={{ fontSize: '4.5rem', lineHeight: '1.1', marginBottom: '1.5rem' }}>
+          <h1 style={{ fontSize: '4.5rem', lineHeight: '1.1', marginBottom: '1rem' }}>
             Hi, I'm Rohit.<br />
             I build <span className="gradient-text">Custom AI Software.</span>
           </h1>
-          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '650px', marginBottom: '3rem' }}>
+          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '650px', marginBottom: '2.5rem' }}>
             I help businesses integrate AI into their products. Whether you need a custom ChatGPT for your private data, or automated AI agents to do your busy work, I build reliable systems that actually work.
           </p>
           
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '5rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '4rem', flexWrap: 'wrap' }}>
             <a href="#services" className="btn btn-primary">
               See What I Build <ChevronRight size={18} />
             </a>
@@ -126,10 +126,10 @@ const App = () => {
           </div>
         </section>
 
-        {/* Services Section (Simplified for non-tech clients) */}
+        {/* Services Section */}
         <section id="services" className="container">
-          <h2 style={{ fontSize: '3rem', marginBottom: '1rem' }}><span className="gradient-text">How I Can Help You</span></h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '4rem', fontSize: '1.2rem', maxWidth: '600px' }}>
+          <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">How I Can Help You</span></h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '2.5rem' }}>
             I specialize in turning raw AI technology (like ChatGPT and Gemini) into usable software for your business.
           </p>
           
@@ -170,7 +170,10 @@ const App = () => {
 
         {/* Projects Section */}
         <section id="projects" className="container">
-          <h2 style={{ fontSize: '3rem', marginBottom: '4rem' }}><span className="gradient-text">Featured Projects</span></h2>
+          <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">Featured Projects</span></h2>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '2.5rem' }}>
+            A selection of production-grade AI systems I have built and deployed.
+          </p>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
             
@@ -228,7 +231,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* Resume Section (Sleek Card UI instead of massive iframe) */}
+        {/* Resume Section */}
         <section id="resume" className="container">
           <div className="glass-card" style={{ 
             padding: '4rem', 
@@ -253,8 +256,8 @@ const App = () => {
               <FileText size={40} color="var(--accent-blue)" />
             </div>
             
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}><span className="gradient-text">Full Resume & Experience</span></h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '3rem' }}>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}><span className="gradient-text">Full Resume & Experience</span></h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '2.5rem' }}>
               Looking for a deep dive into my professional experience, education, and technical stack? View my complete ATS-friendly resume.
             </p>
             
@@ -267,10 +270,10 @@ const App = () => {
         </section>
 
         {/* Contact Form Section */}
-        <section id="contact" className="container" style={{ paddingBottom: '8rem' }}>
+        <section id="contact" className="container">
           <div className="glass-card" style={{ maxWidth: '700px', margin: '0 auto', padding: '4rem 3rem' }}>
-            <h2 style={{ fontSize: '3rem', marginBottom: '1rem', textAlign: 'center' }}><span className="gradient-text">Let's Work Together</span></h2>
-            <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '3rem', fontSize: '1.1rem' }}>
+            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem', textAlign: 'center' }}><span className="gradient-text">Let's Work Together</span></h2>
+            <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '2.5rem', fontSize: '1.1rem' }}>
               Whether you have a freelance project or a full-time opportunity, drop me a message and I'll get back to you within 24 hours.
             </p>
             
