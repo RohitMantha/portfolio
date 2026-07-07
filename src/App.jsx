@@ -1,63 +1,65 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { Database, Server, Brain, Code, ChevronRight, Send, Briefcase, Zap, FileText, ExternalLink, Download, Phone, Rocket, Shield } from 'lucide-react';
 import './index.css';
 
-/* ─── 3D Floating AI Orb ─── */
-const AiOrb = () => {
-  const meshRef = useRef();
-  const lightRef = useRef();
-
-  useFrame(({ clock, pointer }) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.x = clock.getElapsedTime() * 0.15;
-      meshRef.current.rotation.y = clock.getElapsedTime() * 0.2;
-      // Subtle mouse follow
-      meshRef.current.position.x += (pointer.x * 0.5 - meshRef.current.position.x) * 0.02;
-      meshRef.current.position.y += (pointer.y * 0.3 - meshRef.current.position.y) * 0.02;
+/* ─── 3D Particle Network ─── */
+const ParticleNetwork = () => {
+  const pointsRef = useRef();
+  
+  // Generate a random cluster of points to represent a neural network or data cloud
+  const [positions] = useState(() => {
+    const count = 800;
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const r = 2.8 * Math.cbrt(Math.random());
+      const theta = Math.random() * 2 * Math.PI;
+      const phi = Math.acos(2 * Math.random() - 1);
+      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+      pos[i * 3 + 2] = r * Math.cos(phi);
     }
-    if (lightRef.current) {
-      lightRef.current.position.x = Math.sin(clock.getElapsedTime()) * 3;
-      lightRef.current.position.y = Math.cos(clock.getElapsedTime() * 0.7) * 2;
+    return pos;
+  });
+
+  useFrame((state, delta) => {
+    if (pointsRef.current) {
+      // Base slow rotation
+      pointsRef.current.rotation.y += delta * 0.1;
+      pointsRef.current.rotation.x += delta * 0.05;
+      
+      // Interactive mouse follow rotation
+      pointsRef.current.rotation.y += (state.pointer.x * 0.05);
+      pointsRef.current.rotation.x -= (state.pointer.y * 0.05);
     }
   });
 
   return (
     <>
-      <ambientLight intensity={0.15} />
-      <pointLight ref={lightRef} intensity={60} color="#3b82f6" distance={12} />
-      <pointLight position={[2, -2, 3]} intensity={40} color="#8b5cf6" distance={10} />
-      <Float speed={1.5} rotationIntensity={0.4} floatIntensity={1.2}>
-        <mesh ref={meshRef} scale={2.2}>
-          <icosahedronGeometry args={[1, 1]} />
-          <MeshDistortMaterial
-            color="#3b82f6"
-            emissive="#1d4ed8"
-            emissiveIntensity={0.4}
-            roughness={0.2}
-            metalness={0.8}
-            distort={0.35}
-            speed={1.8}
-            wireframe={false}
+      <ambientLight intensity={0.5} />
+      <points ref={pointsRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={positions.length / 3}
+            array={positions}
+            itemSize={3}
           />
-        </mesh>
-      </Float>
-      {/* Wireframe overlay */}
-      <Float speed={1.5} rotationIntensity={0.4} floatIntensity={1.2}>
-        <mesh scale={2.35}>
-          <icosahedronGeometry args={[1, 1]} />
-          <meshBasicMaterial color="#60a5fa" wireframe transparent opacity={0.15} />
-        </mesh>
-      </Float>
-      {/* Outer glow ring */}
-      <Float speed={0.8} rotationIntensity={0.2} floatIntensity={0.6}>
-        <mesh rotation={[Math.PI / 2, 0, 0]} scale={3.2}>
-          <torusGeometry args={[1, 0.01, 16, 100]} />
-          <meshBasicMaterial color="#8b5cf6" transparent opacity={0.3} />
-        </mesh>
-      </Float>
+        </bufferGeometry>
+        <pointsMaterial 
+          size={0.06} 
+          color="#60a5fa" 
+          transparent 
+          opacity={0.8} 
+          sizeAttenuation={true} 
+        />
+      </points>
+      {/* Inner solid sphere to give it a core */}
+      <mesh>
+        <icosahedronGeometry args={[1.2, 2]} />
+        <meshBasicMaterial color="#1e3a8a" wireframe transparent opacity={0.2} />
+      </mesh>
     </>
   );
 };
@@ -81,7 +83,20 @@ const App = () => {
   const charIndex = useRef(0);
   const phaseRef = useRef('prompt'); // 'prompt' | 'output' | 'pause'
 
+  // Dynamic Metrics State
+  const [metrics, setMetrics] = useState({ cpu: 24.2, mem: 12.4, latency: 84 });
+
   useEffect(() => {
+    // Dynamic metrics interval
+    const metricsInterval = setInterval(() => {
+      setMetrics({
+        cpu: +(20 + Math.random() * 15).toFixed(1),
+        mem: +(12 + Math.random() * 2).toFixed(1),
+        latency: Math.floor(75 + Math.random() * 20),
+      });
+    }, 2500);
+
+    // Terminal typing logic
     const tick = () => {
       const cmd = terminalCommands[cmdIndex.current];
 
@@ -129,7 +144,10 @@ const App = () => {
     };
     schedule();
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(metricsInterval);
+    };
   }, []);
 
   // Form State
@@ -210,43 +228,91 @@ const App = () => {
             {/* Right: 3D Orb */}
             <div className="hero-3d">
               <Canvas camera={{ position: [0, 0, 6], fov: 45 }} style={{ background: 'transparent' }}>
-                <AiOrb />
+                <ParticleNetwork />
               </Canvas>
             </div>
           </div>
 
-          {/* Terminal Component — below the hero split */}
-          <div className="terminal" style={{ maxWidth: '800px', marginBottom: '2rem' }}>
-            <div className="terminal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <div className="terminal-dot dot-red"></div>
-                <div className="terminal-dot dot-yellow"></div>
-                <div className="terminal-dot dot-green"></div>
+          {/* Terminal & Metrics Layout */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+            
+            {/* Terminal Component */}
+            <div className="terminal" style={{ width: '100%' }}>
+              <div className="terminal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <div className="terminal-dot dot-red"></div>
+                  <div className="terminal-dot dot-yellow"></div>
+                  <div className="terminal-dot dot-green"></div>
+                </div>
+                <div style={{ fontSize: '0.8rem', color: '#9ca3af', fontFamily: 'var(--font-body)', fontWeight: 500 }}>
+                  rohit@ai — live feed
+                </div>
               </div>
-              <div style={{ fontSize: '0.8rem', color: '#9ca3af', fontFamily: 'var(--font-body)', fontWeight: 500 }}>
-                rohit@ai — live feed
+
+              {/* Previous completed commands */}
+              {terminalLines.map((line, i) => (
+                <div key={i} style={{ marginBottom: '6px' }}>
+                  <div className="log-line">
+                    <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai:~$</span>
+                    <span className="log-info" style={{ marginLeft: '8px' }}>{line.prompt}</span>
+                  </div>
+                  <div className="log-line" style={{ color: '#6ee7b7', paddingLeft: '4px' }}>
+                    {line.output}
+                  </div>
+                </div>
+              ))}
+
+              {/* Currently typing command */}
+              <div className="log-line">
+                <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai:~$</span>
+                <span className="log-info" style={{ marginLeft: '8px' }}>{currentText}</span>
+                <span className="cursor"></span>
               </div>
             </div>
 
-            {/* Previous completed commands */}
-            {terminalLines.map((line, i) => (
-              <div key={i} style={{ marginBottom: '6px' }}>
-                <div className="log-line">
-                  <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai:~$</span>
-                  <span className="log-info" style={{ marginLeft: '8px' }}>{line.prompt}</span>
+            {/* System Metrics Component */}
+            <div className="terminal" style={{ width: '100%', borderColor: 'rgba(59, 130, 246, 0.3)', background: 'rgba(15, 23, 42, 0.6)' }}>
+              <div className="terminal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ fontSize: '0.8rem', color: '#60a5fa', fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '1px' }}>
+                  SYSTEM_METRICS
                 </div>
-                <div className="log-line" style={{ color: '#6ee7b7', paddingLeft: '4px' }}>
-                  {line.output}
+                <div className="pulse-dot" style={{ backgroundColor: '#60a5fa', boxShadow: '0 0 8px rgba(96, 165, 250, 0.6)' }}></div>
+              </div>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1rem' }}>
+                <div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>CPU UTILIZATION</div>
+                  <div style={{ fontSize: '1.5rem', color: '#6ee7b7', fontWeight: 600 }}>{metrics.cpu}%</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>MEMORY (RAM)</div>
+                  <div style={{ fontSize: '1.5rem', color: '#6ee7b7', fontWeight: 600 }}>{metrics.mem} GB</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>ACTIVE AGENTS</div>
+                  <div style={{ fontSize: '1.5rem', color: '#fbbf24', fontWeight: 600 }}>3</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>MODEL LATENCY</div>
+                  <div style={{ fontSize: '1.5rem', color: '#60a5fa', fontWeight: 600 }}>{metrics.latency}ms</div>
                 </div>
               </div>
-            ))}
-
-            {/* Currently typing command */}
-            <div className="log-line">
-              <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai:~$</span>
-              <span className="log-info" style={{ marginLeft: '8px' }}>{currentText}</span>
-              <span className="cursor"></span>
+              
+              <div style={{ marginTop: '2rem', fontSize: '0.8rem', color: '#a7f3d0', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
+                <div style={{ marginBottom: '6px', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>GPU_0 [RTX 4090]</span>
+                  <span style={{ color: '#9ca3af' }}>68°C | 18GB/24GB</span>
+                </div>
+                <div style={{ marginBottom: '6px', display: 'flex', justifyContent: 'space-between' }}>
+                  <span>GPU_1 [RTX 4090]</span>
+                  <span style={{ color: '#9ca3af' }}>65°C | 12GB/24GB</span>
+                </div>
+                <div style={{ marginTop: '1rem', color: '#60a5fa', fontWeight: 'bold' }}>
+                  &gt; STATUS: OPTIMAL
+                </div>
+              </div>
             </div>
+
           </div>
         </section>
 
