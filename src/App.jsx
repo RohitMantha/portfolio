@@ -56,10 +56,6 @@ const App = () => {
         <div className="nav-content">
           <a href="#" className="logo">rohit<span className="gradient-text">.ai</span></a>
           <div className="nav-links">
-            <div className="availability-badge" style={{ marginRight: '1rem', display: 'none' }}>
-               <div className="pulse-dot"></div>
-               Available for Freelance
-            </div>
             <a href="#services">Services</a>
             <a href="#projects">Projects</a>
             <a href="#resume">Resume</a>
@@ -68,10 +64,10 @@ const App = () => {
         </div>
       </nav>
 
-      <main>
+      <main style={{ paddingTop: '8rem', paddingBottom: '4rem' }}>
+        
         {/* Hero Section */}
-        <section id="about" className="container" style={{ paddingTop: '10rem' }}>
-          
+        <section id="about" className="container">
           <div style={{ marginBottom: '1.5rem' }}>
             <div className="availability-badge">
                <div className="pulse-dot"></div>
@@ -97,7 +93,7 @@ const App = () => {
           </div>
 
           {/* Terminal Component */}
-          <div className="terminal" style={{ maxWidth: '800px' }}>
+          <div className="terminal" style={{ maxWidth: '800px', marginBottom: '2rem' }}>
             <div className="terminal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '8px' }}>
                 <div className="terminal-dot dot-red"></div>
@@ -128,119 +124,120 @@ const App = () => {
 
         {/* Services Section */}
         <section id="services" className="container">
-          <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">How I Can Help You</span></h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '2.5rem' }}>
-            I specialize in turning raw AI technology (like ChatGPT and Gemini) into usable software for your business.
-          </p>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+          <div className="section-card">
+            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">How I Can Help You</span></h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '3rem' }}>
+              I specialize in turning raw AI technology (like ChatGPT and Gemini) into usable software for your business.
+            </p>
             
-            <div className="glass-card" style={{ padding: '2.5rem 2rem' }}>
-              <div style={{ background: 'rgba(59, 130, 246, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                <MessageSquare size={32} color="var(--accent-blue)" />
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+              
+              <div className="glass-card">
+                <div style={{ background: 'rgba(59, 130, 246, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                  <MessageSquare size={32} color="var(--accent-blue)" />
+                </div>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Custom AI Chatbots</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
+                  Want a ChatGPT that knows everything about your business? I build intelligent chatbots that securely read your private PDFs, websites, and databases to answer customer or employee questions accurately.
+                </p>
               </div>
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Custom AI Chatbots</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
-                Want a ChatGPT that knows everything about your business? I build intelligent chatbots that securely read your private PDFs, websites, and databases to answer customer or employee questions accurately.
-              </p>
-            </div>
 
-            <div className="glass-card" style={{ padding: '2.5rem 2rem' }}>
-              <div style={{ background: 'rgba(139, 92, 246, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                <Zap size={32} color="var(--accent-purple)" />
+              <div className="glass-card">
+                <div style={{ background: 'rgba(139, 92, 246, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                  <Zap size={32} color="var(--accent-purple)" />
+                </div>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Automated AI Agents</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
+                  Stop doing manual, repetitive tasks. I design "AI Agents" that can autonomously research the web, extract data from documents, fill out forms, and trigger emails without you lifting a finger.
+                </p>
               </div>
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Automated AI Agents</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
-                Stop doing manual, repetitive tasks. I design "AI Agents" that can autonomously research the web, extract data from documents, fill out forms, and trigger emails without you lifting a finger.
-              </p>
-            </div>
 
-            <div className="glass-card" style={{ padding: '2.5rem 2rem' }}>
-              <div style={{ background: 'rgba(16, 185, 129, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                <Briefcase size={32} color="#10b981" />
+              <div className="glass-card">
+                <div style={{ background: 'rgba(16, 185, 129, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+                  <Briefcase size={32} color="#10b981" />
+                </div>
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>AI App Development</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
+                  Have an idea for an AI startup or internal tool? I build the complete software package. From integrating OpenAI and Gemini APIs, to building the backend infrastructure so it runs incredibly fast.
+                </p>
               </div>
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>AI App Development</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
-                Have an idea for an AI startup or internal tool? I build the complete software package. From integrating OpenAI and Gemini APIs, to building the backend infrastructure so it runs incredibly fast.
-              </p>
-            </div>
 
+            </div>
           </div>
         </section>
 
         {/* Projects Section */}
         <section id="projects" className="container">
-          <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">Featured Projects</span></h2>
-          <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '2.5rem' }}>
-            A selection of production-grade AI systems I have built and deployed.
-          </p>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+          <div className="section-card">
+            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">Featured Projects</span></h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '3rem' }}>
+              A selection of production-grade AI systems I have built and deployed.
+            </p>
             
-            {/* Project 1 */}
-            <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2rem' }}>
-              <Brain size={36} color="var(--accent-blue)" style={{ marginBottom: '1.5rem' }} />
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Enterprise RAG Pipeline</h3>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
-                End-to-end RAG (Retrieval-Augmented Generation) system over 50K+ financial documents using hybrid retrieval. Achieved 78.2% Context Precision, eliminating hallucinations.
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>LangChain</span>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>ChromaDB</span>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>FastAPI</span>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+              
+              {/* Project 1 */}
+              <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <Brain size={36} color="var(--accent-blue)" style={{ marginBottom: '1.5rem' }} />
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Enterprise RAG Pipeline</h3>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
+                  End-to-end RAG (Retrieval-Augmented Generation) system over 50K+ financial documents using hybrid retrieval. Achieved 78.2% Context Precision, eliminating hallucinations.
+                </p>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>LangChain</span>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>ChromaDB</span>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>FastAPI</span>
+                </div>
+                <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                  <Code size={18} /> Source Code
+                </a>
               </div>
-              <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
-                <Code size={18} /> Source Code
-              </a>
-            </div>
 
-            {/* Project 2 */}
-            <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2rem' }}>
-              <Server size={36} color="var(--accent-purple)" style={{ marginBottom: '1.5rem' }} />
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Multi-Agent AI Platform</h3>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
-                An orchestration platform where autonomous AI agents collaborate to conduct research and write reports, reducing complex task times to under 3 minutes.
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>LangGraph</span>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>CrewAI</span>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>OpenAI</span>
+              {/* Project 2 */}
+              <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <Server size={36} color="var(--accent-purple)" style={{ marginBottom: '1.5rem' }} />
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Multi-Agent AI Platform</h3>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
+                  An orchestration platform where autonomous AI agents collaborate to conduct research and write reports, reducing complex task times to under 3 minutes.
+                </p>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>LangGraph</span>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>CrewAI</span>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>OpenAI</span>
+                </div>
+                <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                  <Code size={18} /> Source Code
+                </a>
               </div>
-              <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
-                <Code size={18} /> Source Code
-              </a>
-            </div>
 
-            {/* Project 3 */}
-            <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2rem' }}>
-              <Database size={36} color="#10b981" style={{ marginBottom: '1.5rem' }} />
-              <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>AI Finance Assistant</h3>
-              <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
-                Intelligent Q&A system enabling natural language queries over dense financial reports using 512-token semantic chunking for high accuracy.
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Gemini API</span>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Transformers</span>
-                <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Pinecone</span>
+              {/* Project 3 */}
+              <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                <Database size={36} color="#10b981" style={{ marginBottom: '1.5rem' }} />
+                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>AI Finance Assistant</h3>
+                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
+                  Intelligent Q&A system enabling natural language queries over dense financial reports using 512-token semantic chunking for high accuracy.
+                </p>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Gemini API</span>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Transformers</span>
+                  <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Pinecone</span>
+                </div>
+                <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
+                  <Code size={18} /> Source Code
+                </a>
               </div>
-              <a href="https://github.com/rohit-mantha" target="_blank" rel="noreferrer" className="btn btn-secondary" style={{ width: '100%', justifyContent: 'center' }}>
-                <Code size={18} /> Source Code
-              </a>
-            </div>
 
+            </div>
           </div>
         </section>
 
         {/* Resume Section */}
         <section id="resume" className="container">
-          <div className="glass-card" style={{ 
-            padding: '4rem', 
+          <div className="section-card" style={{ 
             display: 'flex', 
             flexDirection: 'column', 
             alignItems: 'center', 
-            textAlign: 'center',
-            background: 'linear-gradient(145deg, rgba(15,15,15,0.9) 0%, rgba(5,5,5,0.95) 100%)',
-            border: '1px solid rgba(255,255,255,0.05)'
+            textAlign: 'center'
           }}>
             <div style={{ 
               background: 'rgba(59, 130, 246, 0.1)', 
@@ -256,7 +253,7 @@ const App = () => {
               <FileText size={40} color="var(--accent-blue)" />
             </div>
             
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}><span className="gradient-text">Full Resume & Experience</span></h2>
+            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">Full Resume & Experience</span></h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '2.5rem' }}>
               Looking for a deep dive into my professional experience, education, and technical stack? View my complete ATS-friendly resume.
             </p>
@@ -271,14 +268,14 @@ const App = () => {
 
         {/* Contact Form Section */}
         <section id="contact" className="container">
-          <div className="glass-card" style={{ maxWidth: '700px', margin: '0 auto', padding: '4rem 3rem' }}>
+          <div className="section-card" style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem', textAlign: 'center' }}><span className="gradient-text">Let's Work Together</span></h2>
-            <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '2.5rem', fontSize: '1.1rem' }}>
+            <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '3rem', fontSize: '1.1rem' }}>
               Whether you have a freelance project or a full-time opportunity, drop me a message and I'll get back to you within 24 hours.
             </p>
             
             <form onSubmit={onSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
                 <div>
                   <label className="form-label">Your Name</label>
                   <input type="text" name="name" className="form-input" required placeholder="John Doe" />
