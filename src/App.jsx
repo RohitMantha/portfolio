@@ -4,63 +4,93 @@ import * as THREE from 'three';
 import { Database, Server, Brain, Code, ChevronRight, Send, Briefcase, Zap, FileText, ExternalLink, Download, Phone, Rocket, Shield } from 'lucide-react';
 import './index.css';
 
-/* ─── 3D Particle Network ─── */
-const ParticleNetwork = () => {
-  const pointsRef = useRef();
+/* ─── 3D Transformer Architecture Network ─── */
+const TransformerNetwork = () => {
+  const groupRef = useRef();
+  const pointsRefs = useRef([]);
   
-  // Generate a random cluster of points to represent a neural network or data cloud
-  const [positions] = useState(() => {
-    const count = 800;
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      const r = 2.8 * Math.cbrt(Math.random());
-      const theta = Math.random() * 2 * Math.PI;
-      const phi = Math.acos(2 * Math.random() - 1);
-      pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      pos[i * 3 + 2] = r * Math.cos(phi);
+  // Create 4 concentric spherical layers to represent deep learning neural layers
+  const [layers] = useState(() => {
+    const layersData = [];
+    const layerCount = 4;
+    for (let l = 0; l < layerCount; l++) {
+      const count = 200 + (l * 50);
+      const pos = new Float32Array(count * 3);
+      for (let i = 0; i < count; i++) {
+        // Spherical distribution for a cool "brain" / network look
+        const r = 1.2 + (l * 0.8);
+        const theta = Math.random() * 2 * Math.PI;
+        const phi = Math.acos(2 * Math.random() - 1);
+        pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+        pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        pos[i * 3 + 2] = r * Math.cos(phi);
+      }
+      layersData.push({ original: pos, current: new Float32Array(pos) });
     }
-    return pos;
+    return layersData;
   });
 
   useFrame((state, delta) => {
-    if (pointsRef.current) {
-      // Base slow rotation
-      pointsRef.current.rotation.y += delta * 0.1;
-      pointsRef.current.rotation.x += delta * 0.05;
+    if (groupRef.current) {
+      groupRef.current.rotation.y += delta * 0.2;
+      groupRef.current.rotation.x += delta * 0.08;
       
-      // Interactive mouse follow rotation
-      pointsRef.current.rotation.y += (state.pointer.x * 0.05);
-      pointsRef.current.rotation.x -= (state.pointer.y * 0.05);
+      // Interactive mouse follow
+      groupRef.current.rotation.y += (state.pointer.x * 0.06);
+      groupRef.current.rotation.x -= (state.pointer.y * 0.06);
     }
+    
+    // "Breathing" data processing animation for nodes
+    const t = state.clock.getElapsedTime();
+    layers.forEach((layer, layerIdx) => {
+      if (pointsRefs.current[layerIdx]) {
+        const positions = pointsRefs.current[layerIdx].geometry.attributes.position.array;
+        for (let i = 0; i < layer.original.length / 3; i++) {
+          // Calculate a pulsing factor based on time and layer depth
+          const pulse = 1 + Math.sin(t * 2 + layerIdx) * 0.04;
+          positions[i * 3] = layer.original[i * 3] * pulse;
+          positions[i * 3 + 1] = layer.original[i * 3 + 1] * pulse;
+          positions[i * 3 + 2] = layer.original[i * 3 + 2] * pulse;
+        }
+        pointsRefs.current[layerIdx].geometry.attributes.position.needsUpdate = true;
+      }
+    });
   });
 
   return (
-    <>
+    <group ref={groupRef}>
       <ambientLight intensity={0.5} />
-      <points ref={pointsRef}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            count={positions.length / 3}
-            array={positions}
-            itemSize={3}
+      {layers.map((layer, index) => (
+        <points key={index} ref={el => pointsRefs.current[index] = el}>
+          <bufferGeometry>
+            <bufferAttribute
+              attach="attributes-position"
+              count={layer.current.length / 3}
+              array={layer.current}
+              itemSize={3}
+            />
+          </bufferGeometry>
+          <pointsMaterial 
+            size={0.06 + (index * 0.01)} 
+            color={index % 2 === 0 ? "#60a5fa" : "#8b5cf6"} 
+            transparent 
+            opacity={0.7} 
+            sizeAttenuation={true} 
+            blending={THREE.AdditiveBlending}
           />
-        </bufferGeometry>
-        <pointsMaterial 
-          size={0.06} 
-          color="#60a5fa" 
-          transparent 
-          opacity={0.8} 
-          sizeAttenuation={true} 
-        />
-      </points>
-      {/* Inner solid sphere to give it a core */}
+        </points>
+      ))}
+      {/* Central "Core" processing unit */}
       <mesh>
-        <icosahedronGeometry args={[1.2, 2]} />
-        <meshBasicMaterial color="#1e3a8a" wireframe transparent opacity={0.2} />
+        <octahedronGeometry args={[0.8, 0]} />
+        <meshBasicMaterial color="#34d399" wireframe transparent opacity={0.3} />
       </mesh>
-    </>
+      {/* Outer subtle containment field */}
+      <mesh>
+        <icosahedronGeometry args={[4.2, 2]} />
+        <meshBasicMaterial color="#1e3a8a" wireframe transparent opacity={0.05} />
+      </mesh>
+    </group>
   );
 };
 
@@ -83,19 +113,7 @@ const App = () => {
   const charIndex = useRef(0);
   const phaseRef = useRef('prompt'); // 'prompt' | 'output' | 'pause'
 
-  // Dynamic Metrics State
-  const [metrics, setMetrics] = useState({ cpu: 24.2, mem: 12.4, latency: 84 });
-
   useEffect(() => {
-    // Dynamic metrics interval
-    const metricsInterval = setInterval(() => {
-      setMetrics({
-        cpu: +(20 + Math.random() * 15).toFixed(1),
-        mem: +(12 + Math.random() * 2).toFixed(1),
-        latency: Math.floor(75 + Math.random() * 20),
-      });
-    }, 2500);
-
     // Terminal typing logic
     const tick = () => {
       const cmd = terminalCommands[cmdIndex.current];
@@ -146,7 +164,6 @@ const App = () => {
 
     return () => {
       clearTimeout(timeout);
-      clearInterval(metricsInterval);
     };
   }, []);
 
@@ -227,14 +244,14 @@ const App = () => {
 
             {/* Right: 3D Orb */}
             <div className="hero-3d">
-              <Canvas camera={{ position: [0, 0, 6], fov: 45 }} style={{ background: 'transparent' }}>
-                <ParticleNetwork />
+              <Canvas camera={{ position: [0, 0, 9], fov: 45 }} style={{ background: 'transparent' }}>
+                <TransformerNetwork />
               </Canvas>
             </div>
           </div>
 
-          {/* Terminal & Metrics Layout */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+          {/* Terminal Layout */}
+          <div style={{ width: '100%', marginBottom: '2rem' }}>
             
             {/* Terminal Component */}
             <div className="terminal" style={{ width: '100%' }}>
@@ -267,49 +284,6 @@ const App = () => {
                 <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai:~$</span>
                 <span className="log-info" style={{ marginLeft: '8px' }}>{currentText}</span>
                 <span className="cursor"></span>
-              </div>
-            </div>
-
-            {/* System Metrics Component */}
-            <div className="terminal" style={{ width: '100%', borderColor: 'rgba(59, 130, 246, 0.3)', background: 'rgba(15, 23, 42, 0.6)' }}>
-              <div className="terminal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div style={{ fontSize: '0.8rem', color: '#60a5fa', fontFamily: 'var(--font-mono)', fontWeight: 700, letterSpacing: '1px' }}>
-                  SYSTEM_METRICS
-                </div>
-                <div className="pulse-dot" style={{ backgroundColor: '#60a5fa', boxShadow: '0 0 8px rgba(96, 165, 250, 0.6)' }}></div>
-              </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', marginTop: '1rem' }}>
-                <div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>CPU UTILIZATION</div>
-                  <div style={{ fontSize: '1.5rem', color: '#6ee7b7', fontWeight: 600 }}>{metrics.cpu}%</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>MEMORY (RAM)</div>
-                  <div style={{ fontSize: '1.5rem', color: '#6ee7b7', fontWeight: 600 }}>{metrics.mem} GB</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>ACTIVE AGENTS</div>
-                  <div style={{ fontSize: '1.5rem', color: '#fbbf24', fontWeight: 600 }}>3</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '4px' }}>MODEL LATENCY</div>
-                  <div style={{ fontSize: '1.5rem', color: '#60a5fa', fontWeight: 600 }}>{metrics.latency}ms</div>
-                </div>
-              </div>
-              
-              <div style={{ marginTop: '2rem', fontSize: '0.8rem', color: '#a7f3d0', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
-                <div style={{ marginBottom: '6px', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>GPU_0 [RTX 4090]</span>
-                  <span style={{ color: '#9ca3af' }}>68°C | 18GB/24GB</span>
-                </div>
-                <div style={{ marginBottom: '6px', display: 'flex', justifyContent: 'space-between' }}>
-                  <span>GPU_1 [RTX 4090]</span>
-                  <span style={{ color: '#9ca3af' }}>65°C | 12GB/24GB</span>
-                </div>
-                <div style={{ marginTop: '1rem', color: '#60a5fa', fontWeight: 'bold' }}>
-                  &gt; STATUS: OPTIMAL
-                </div>
               </div>
             </div>
 
@@ -364,8 +338,8 @@ const App = () => {
         <section id="process" className="container">
           <div className="section-card">
             <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem', textAlign: 'center' }}><span className="gradient-text">How I Work</span></h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', textAlign: 'center', maxWidth: '550px', margin: '0 auto 3rem' }}>
-              A simple, transparent process from first call to production deployment.
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', textAlign: 'center', maxWidth: '650px', margin: '0 auto 3rem' }}>
+              These stages are highly related and flow in a strict order — from our first discovery call straight through to production deployment.
             </p>
             
             <div className="process-grid">
