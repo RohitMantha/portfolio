@@ -1,23 +1,135 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Float, MeshDistortMaterial } from '@react-three/drei';
+import * as THREE from 'three';
 import { Database, Server, Brain, Code, ChevronRight, Send, Briefcase, Zap, FileText, ExternalLink, Download, Phone, Rocket, Shield } from 'lucide-react';
 import './index.css';
 
+/* ─── 3D Floating AI Orb ─── */
+const AiOrb = () => {
+  const meshRef = useRef();
+  const lightRef = useRef();
+
+  useFrame(({ clock, pointer }) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = clock.getElapsedTime() * 0.15;
+      meshRef.current.rotation.y = clock.getElapsedTime() * 0.2;
+      // Subtle mouse follow
+      meshRef.current.position.x += (pointer.x * 0.5 - meshRef.current.position.x) * 0.02;
+      meshRef.current.position.y += (pointer.y * 0.3 - meshRef.current.position.y) * 0.02;
+    }
+    if (lightRef.current) {
+      lightRef.current.position.x = Math.sin(clock.getElapsedTime()) * 3;
+      lightRef.current.position.y = Math.cos(clock.getElapsedTime() * 0.7) * 2;
+    }
+  });
+
+  return (
+    <>
+      <ambientLight intensity={0.15} />
+      <pointLight ref={lightRef} intensity={60} color="#3b82f6" distance={12} />
+      <pointLight position={[2, -2, 3]} intensity={40} color="#8b5cf6" distance={10} />
+      <Float speed={1.5} rotationIntensity={0.4} floatIntensity={1.2}>
+        <mesh ref={meshRef} scale={2.2}>
+          <icosahedronGeometry args={[1, 1]} />
+          <MeshDistortMaterial
+            color="#3b82f6"
+            emissive="#1d4ed8"
+            emissiveIntensity={0.4}
+            roughness={0.2}
+            metalness={0.8}
+            distort={0.35}
+            speed={1.8}
+            wireframe={false}
+          />
+        </mesh>
+      </Float>
+      {/* Wireframe overlay */}
+      <Float speed={1.5} rotationIntensity={0.4} floatIntensity={1.2}>
+        <mesh scale={2.35}>
+          <icosahedronGeometry args={[1, 1]} />
+          <meshBasicMaterial color="#60a5fa" wireframe transparent opacity={0.15} />
+        </mesh>
+      </Float>
+      {/* Outer glow ring */}
+      <Float speed={0.8} rotationIntensity={0.2} floatIntensity={0.6}>
+        <mesh rotation={[Math.PI / 2, 0, 0]} scale={3.2}>
+          <torusGeometry args={[1, 0.01, 16, 100]} />
+          <meshBasicMaterial color="#8b5cf6" transparent opacity={0.3} />
+        </mesh>
+      </Float>
+    </>
+  );
+};
+
+/* ─── Looping Terminal Animation ─── */
+const terminalCommands = [
+  { prompt: 'cat current_focus.txt', output: '> Exploring multi-agent orchestration for autonomous enterprise workflows.' },
+  { prompt: './deploy_rag_pipeline.sh --env=production', output: '✓ RAG pipeline deployed — 86% Context Precision, p95 latency 120ms' },
+  { prompt: 'python train.py --model=mistral-7b --method=qlora', output: '✓ Fine-tuning complete — 15% accuracy ↑, 40% inference cost ↓' },
+  { prompt: 'kubectl get pods -n ai-services', output: '✓ 4/4 pods running: rag-api, agent-orchestrator, vector-db, eval-service' },
+  { prompt: 'python eval.py --benchmark=ragas --dataset=finance', output: '✓ Faithfulness: 91.2% | Context Precision: 86.4% | Answer Relevancy: 88.7%' },
+  { prompt: './launch_agents.sh --crew=research,analyst,writer', output: '✓ 3 agents spawned — task decomposition active, ETA: 2m 48s' },
+];
+
 const App = () => {
-  // Terminal Typing Effect State
-  const [terminalText, setTerminalText] = useState('');
-  const fullText = "Building an open-source AI tool for financial APIs... [██████████░░] 85%";
-  
+  // Looping Terminal State
+  const [terminalLines, setTerminalLines] = useState([]);
+  const [currentText, setCurrentText] = useState('');
+  const [isTypingPrompt, setIsTypingPrompt] = useState(true);
+  const cmdIndex = useRef(0);
+  const charIndex = useRef(0);
+  const phaseRef = useRef('prompt'); // 'prompt' | 'output' | 'pause'
+
   useEffect(() => {
-    let i = 0;
-    const typingInterval = setInterval(() => {
-      if (i < fullText.length) {
-        setTerminalText(fullText.substring(0, i + 1));
-        i++;
-      } else {
-        clearInterval(typingInterval);
+    const tick = () => {
+      const cmd = terminalCommands[cmdIndex.current];
+
+      if (phaseRef.current === 'prompt') {
+        if (charIndex.current < cmd.prompt.length) {
+          charIndex.current++;
+          setCurrentText(cmd.prompt.substring(0, charIndex.current));
+          setIsTypingPrompt(true);
+          return 45 + Math.random() * 35; // typing speed variation
+        } else {
+          // Done typing prompt, show output
+          phaseRef.current = 'output';
+          charIndex.current = 0;
+          return 300; // brief pause before output
+        }
       }
-    }, 50);
-    return () => clearInterval(typingInterval);
+
+      if (phaseRef.current === 'output') {
+        // Show output instantly
+        setTerminalLines(prev => {
+          const newLines = [...prev, { prompt: cmd.prompt, output: cmd.output }];
+          // Keep only last 4 command pairs visible
+          return newLines.slice(-4);
+        });
+        setCurrentText('');
+        setIsTypingPrompt(true);
+        phaseRef.current = 'pause';
+        return 1500; // pause before next command
+      }
+
+      if (phaseRef.current === 'pause') {
+        phaseRef.current = 'prompt';
+        charIndex.current = 0;
+        cmdIndex.current = (cmdIndex.current + 1) % terminalCommands.length;
+        return 100;
+      }
+
+      return 50;
+    };
+
+    let timeout;
+    const schedule = () => {
+      const delay = tick();
+      timeout = setTimeout(schedule, delay);
+    };
+    schedule();
+
+    return () => clearTimeout(timeout);
   }, []);
 
   // Form State
@@ -67,31 +179,43 @@ const App = () => {
         
         {/* ═══════════════════ HERO ═══════════════════ */}
         <section id="about" className="container">
-          <div style={{ marginBottom: '1.5rem' }}>
-            <div className="availability-badge">
-               <div className="pulse-dot"></div>
-               Available for Full-Time Roles & Freelance Projects
+          <div className="hero-layout">
+            {/* Left: Text Content */}
+            <div className="hero-text">
+              <div style={{ marginBottom: '1.5rem' }}>
+                <div className="availability-badge">
+                   <div className="pulse-dot"></div>
+                   Available for Full-Time Roles & Freelance Projects
+                </div>
+              </div>
+
+              <h1 style={{ fontSize: '4.5rem', lineHeight: '1.1', marginBottom: '1rem' }}>
+                I build <span className="gradient-text">Generative AI</span><br />
+                systems that ship.
+              </h1>
+              <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '650px', marginBottom: '2.5rem' }}>
+                AI Engineer helping businesses turn ChatGPT, Gemini, and open-source LLMs into production software. From custom chatbots over your private data to autonomous AI agents that eliminate busywork.
+              </p>
+              
+              <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+                <a href="#contact" className="btn btn-primary">
+                  Let's Talk <ChevronRight size={18} />
+                </a>
+                <a href="#projects" className="btn btn-secondary">
+                  See My Work
+                </a>
+              </div>
+            </div>
+
+            {/* Right: 3D Orb */}
+            <div className="hero-3d">
+              <Canvas camera={{ position: [0, 0, 6], fov: 45 }} style={{ background: 'transparent' }}>
+                <AiOrb />
+              </Canvas>
             </div>
           </div>
 
-          <h1 style={{ fontSize: '4.5rem', lineHeight: '1.1', marginBottom: '1rem' }}>
-            I build <span className="gradient-text">Generative AI</span><br />
-            systems that ship.
-          </h1>
-          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '650px', marginBottom: '2.5rem' }}>
-            AI Engineer helping businesses turn ChatGPT, Gemini, and open-source LLMs into production software. From custom chatbots over your private data to autonomous AI agents that eliminate busywork.
-          </p>
-          
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '4rem', flexWrap: 'wrap' }}>
-            <a href="#contact" className="btn btn-primary">
-              Let's Talk <ChevronRight size={18} />
-            </a>
-            <a href="#projects" className="btn btn-secondary">
-              See My Work
-            </a>
-          </div>
-
-          {/* Terminal Component */}
+          {/* Terminal Component — below the hero split */}
           <div className="terminal" style={{ maxWidth: '800px', marginBottom: '2rem' }}>
             <div className="terminal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', gap: '8px' }}>
@@ -100,23 +224,28 @@ const App = () => {
                 <div className="terminal-dot dot-green"></div>
               </div>
               <div style={{ fontSize: '0.8rem', color: '#9ca3af', fontFamily: 'var(--font-body)', fontWeight: 500 }}>
-                bash — Currently Building & Learning
+                rohit@ai — live feed
               </div>
             </div>
+
+            {/* Previous completed commands */}
+            {terminalLines.map((line, i) => (
+              <div key={i} style={{ marginBottom: '6px' }}>
+                <div className="log-line">
+                  <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai:~$</span>
+                  <span className="log-info" style={{ marginLeft: '8px' }}>{line.prompt}</span>
+                </div>
+                <div className="log-line" style={{ color: '#6ee7b7', paddingLeft: '4px' }}>
+                  {line.output}
+                </div>
+              </div>
+            ))}
+
+            {/* Currently typing command */}
             <div className="log-line">
-              <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai-portfolio:~$</span>
-              <span className="log-info" style={{ marginLeft: '8px' }}>cat currently_learning.txt</span>
-            </div>
-            <div className="log-line" style={{ marginBottom: '1.2rem', color: '#d1d5db', fontStyle: 'italic' }}>
-              &gt; Exploring advanced multi-agent orchestration for business automation.
-            </div>
-            <div className="log-line">
-              <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai-portfolio:~$</span>
-              <span className="log-info" style={{ marginLeft: '8px' }}>./execute_current_project.sh</span>
-            </div>
-            <div className="log-line">
-              <span className="log-success">➜</span>
-              <span style={{ color: '#f3f4f6', marginLeft: '8px' }}>{terminalText}</span><span className="cursor"></span>
+              <span className="log-prefix" style={{ color: '#fbbf24' }}>rohit@ai:~$</span>
+              <span className="log-info" style={{ marginLeft: '8px' }}>{currentText}</span>
+              <span className="cursor"></span>
             </div>
           </div>
         </section>
