@@ -133,7 +133,7 @@ const App = () => {
               
               <div className="glass-card">
                 <div style={{ background: 'rgba(59, 130, 246, 0.1)', width: '60px', height: '60px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-                  <MessageSquare size={32} color="var(--accent-blue)" />
+                  <Brain size={32} color="var(--accent-blue)" />
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Custom AI Chatbots</h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
