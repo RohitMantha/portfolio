@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Database, Server, Brain, Code, ChevronRight, Send, Briefcase, MessageSquare, Zap, FileText, ExternalLink } from 'lucide-react';
+import { Database, Server, Brain, Code, ChevronRight, Send, Briefcase, MessageSquare, Zap, FileText, ExternalLink, Download, Phone, Rocket, Shield } from 'lucide-react';
 import './index.css';
 
 const App = () => {
@@ -28,7 +28,6 @@ const App = () => {
     setResult("Sending....");
     const formData = new FormData(event.target);
 
-    // Provide your Web3Forms Access Key here
     formData.append("access_key", "a7d19e34-ed4a-4e83-854b-96ce54fd8a17");
 
     const response = await fetch("https://api.web3forms.com/submit", {
@@ -57,7 +56,7 @@ const App = () => {
           <a href="#" className="logo">rohit<span className="gradient-text">.ai</span></a>
           <div className="nav-links">
             <a href="#services">Services</a>
-            <a href="#projects">Projects</a>
+            <a href="#projects">Work</a>
             <a href="#resume">Resume</a>
             <a href="#contact" className="btn btn-primary" style={{ padding: '8px 16px', fontSize: '0.9rem', color: 'white' }}>Hire Me</a>
           </div>
@@ -66,7 +65,7 @@ const App = () => {
 
       <main style={{ paddingTop: '8rem', paddingBottom: '4rem' }}>
         
-        {/* Hero Section */}
+        {/* ═══════════════════ HERO ═══════════════════ */}
         <section id="about" className="container">
           <div style={{ marginBottom: '1.5rem' }}>
             <div className="availability-badge">
@@ -76,19 +75,19 @@ const App = () => {
           </div>
 
           <h1 style={{ fontSize: '4.5rem', lineHeight: '1.1', marginBottom: '1rem' }}>
-            Hi, I'm Rohit.<br />
-            I build <span className="gradient-text">Custom AI Software.</span>
+            I build <span className="gradient-text">Generative AI</span><br />
+            systems that ship.
           </h1>
           <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '650px', marginBottom: '2.5rem' }}>
-            I help businesses integrate AI into their products. Whether you need a custom ChatGPT for your private data, or automated AI agents to do your busy work, I build reliable systems that actually work.
+            AI Engineer helping businesses turn ChatGPT, Gemini, and open-source LLMs into production software. From custom chatbots over your private data to autonomous AI agents that eliminate busywork.
           </p>
           
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '4rem', flexWrap: 'wrap' }}>
-            <a href="#services" className="btn btn-primary">
-              See What I Build <ChevronRight size={18} />
+            <a href="#contact" className="btn btn-primary">
+              Let's Talk <ChevronRight size={18} />
             </a>
-            <a href="#contact" className="btn btn-secondary">
-              Let's Talk
+            <a href="#projects" className="btn btn-secondary">
+              See My Work
             </a>
           </div>
 
@@ -122,12 +121,12 @@ const App = () => {
           </div>
         </section>
 
-        {/* Services Section */}
+        {/* ═══════════════════ SERVICES ═══════════════════ */}
         <section id="services" className="container">
           <div className="section-card">
             <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">How I Can Help You</span></h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '3rem' }}>
-              I specialize in turning raw AI technology (like ChatGPT and Gemini) into usable software for your business.
+              I turn raw AI technology (like ChatGPT, Gemini, and open-source models) into usable software for your business.
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
@@ -148,7 +147,7 @@ const App = () => {
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Automated AI Agents</h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
-                  Stop doing manual, repetitive tasks. I design "AI Agents" that can autonomously research the web, extract data from documents, fill out forms, and trigger emails without you lifting a finger.
+                  Stop doing manual, repetitive tasks. I design AI Agents that can autonomously research the web, extract data from documents, fill out forms, and trigger emails — without you lifting a finger.
                 </p>
               </div>
 
@@ -158,7 +157,7 @@ const App = () => {
                 </div>
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>AI App Development</h3>
                 <p style={{ color: 'var(--text-muted)', lineHeight: '1.7' }}>
-                  Have an idea for an AI startup or internal tool? I build the complete software package. From integrating OpenAI and Gemini APIs, to building the backend infrastructure so it runs incredibly fast.
+                  Have an idea for an AI startup or internal tool? I build the complete software — from integrating OpenAI and Gemini APIs, to the backend infrastructure that makes it run fast and reliably at scale.
                 </p>
               </div>
 
@@ -166,23 +165,67 @@ const App = () => {
           </div>
         </section>
 
-        {/* Projects Section */}
+        {/* ═══════════════════ HOW I WORK ═══════════════════ */}
+        <section id="process" className="container">
+          <div className="section-card">
+            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem', textAlign: 'center' }}><span className="gradient-text">How I Work</span></h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', textAlign: 'center', maxWidth: '550px', margin: '0 auto 3rem' }}>
+              A simple, transparent process from first call to production deployment.
+            </p>
+            
+            <div className="process-grid">
+              <div className="process-step">
+                <div className="step-number" style={{ background: 'rgba(59, 130, 246, 0.1)', color: 'var(--accent-blue)' }}>
+                  <Phone size={24} />
+                </div>
+                <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Discovery</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                  We hop on a call. I learn your data, your goals, and your constraints. No jargon, just clarity.
+                </p>
+              </div>
+              
+              <div className="process-step">
+                <div className="step-number" style={{ background: 'rgba(139, 92, 246, 0.1)', color: 'var(--accent-purple)' }}>
+                  <Rocket size={24} />
+                </div>
+                <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Rapid Prototype</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                  I deliver a working MVP in 1–2 weeks. You see real results before committing to a full build.
+                </p>
+              </div>
+              
+              <div className="process-step">
+                <div className="step-number" style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>
+                  <Shield size={24} />
+                </div>
+                <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Production Deploy</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
+                  I scale, optimize, and deploy the final system. You get full documentation and handoff.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════ PROJECTS (CASE STUDIES) ═══════════════════ */}
         <section id="projects" className="container">
           <div className="section-card">
-            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">Featured Projects</span></h2>
+            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">Featured Work</span></h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '3rem' }}>
-              A selection of production-grade AI systems I have built and deployed.
+              Real problems solved with production-grade AI systems.
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
               
-              {/* Project 1 */}
+              {/* Project 1 - Case Study Format */}
               <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <Brain size={36} color="var(--accent-blue)" style={{ marginBottom: '1.5rem' }} />
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Enterprise RAG Pipeline</h3>
-                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
-                  End-to-end RAG (Retrieval-Augmented Generation) system over 50K+ financial documents using hybrid retrieval. Achieved 78.2% Context Precision, eliminating hallucinations.
-                </p>
+                <div style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.7' }}>
+                  <p style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>Problem:</strong> A financial firm was manually reviewing 1,200+ documents daily.</p>
+                  <p style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>Solution:</strong> Built a RAG pipeline with LangChain + ChromaDB using hybrid retrieval and re-ranking.</p>
+                  <p><strong style={{ color: 'var(--text-main)' }}>Result:</strong> 65% reduction in manual review. 78.2% Context Precision.</p>
+                </div>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>LangChain</span>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>ChromaDB</span>
@@ -193,13 +236,15 @@ const App = () => {
                 </a>
               </div>
 
-              {/* Project 2 */}
+              {/* Project 2 - Case Study Format */}
               <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <Server size={36} color="var(--accent-purple)" style={{ marginBottom: '1.5rem' }} />
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>Multi-Agent AI Platform</h3>
-                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
-                  An orchestration platform where autonomous AI agents collaborate to conduct research and write reports, reducing complex task times to under 3 minutes.
-                </p>
+                <div style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.7' }}>
+                  <p style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>Problem:</strong> Complex research and analysis tasks were taking teams 2+ hours each.</p>
+                  <p style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>Solution:</strong> Designed autonomous AI agents that collaborate using LangGraph with human-in-the-loop approval gates.</p>
+                  <p><strong style={{ color: 'var(--text-main)' }}>Result:</strong> Task completion in under 3 minutes with built-in cost tracking.</p>
+                </div>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>LangGraph</span>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>CrewAI</span>
@@ -210,13 +255,15 @@ const App = () => {
                 </a>
               </div>
 
-              {/* Project 3 */}
+              {/* Project 3 - Case Study Format */}
               <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                 <Database size={36} color="#10b981" style={{ marginBottom: '1.5rem' }} />
                 <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem' }}>AI Finance Assistant</h3>
-                <p style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.6' }}>
-                  Intelligent Q&A system enabling natural language queries over dense financial reports using 512-token semantic chunking for high accuracy.
-                </p>
+                <div style={{ color: 'var(--text-muted)', marginBottom: '2rem', flexGrow: 1, lineHeight: '1.7' }}>
+                  <p style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>Problem:</strong> Analysts couldn't quickly query dense financial reports in natural language.</p>
+                  <p style={{ marginBottom: '0.5rem' }}><strong style={{ color: 'var(--text-main)' }}>Solution:</strong> Built an intelligent Q&A system with 512-token semantic chunking and Gemini API integration.</p>
+                  <p><strong style={{ color: 'var(--text-main)' }}>Result:</strong> Instant natural language queries over thousands of financial pages.</p>
+                </div>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Gemini API</span>
                   <span style={{ fontSize: '0.85rem', background: 'rgba(255,255,255,0.08)', padding: '6px 12px', borderRadius: '20px' }}>Transformers</span>
@@ -231,7 +278,49 @@ const App = () => {
           </div>
         </section>
 
-        {/* Resume Section */}
+        {/* ═══════════════════ TESTIMONIALS ═══════════════════ */}
+        <section id="testimonials" className="container">
+          <div className="section-card">
+            <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem', textAlign: 'center' }}><span className="gradient-text">What People Say</span></h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', textAlign: 'center', maxWidth: '550px', margin: '0 auto 3rem' }}>
+              Feedback from colleagues and collaborators I've worked with.
+            </p>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+              
+              <div className="testimonial-card">
+                <div className="quote-mark">"</div>
+                <blockquote>
+                  "Rohit built our document intelligence pipeline from scratch. He didn't just write code — he understood the business problem and designed a system that reduced our manual review from 6 hours to under 2. Highly recommended."
+                </blockquote>
+                <div className="testimonial-author">
+                  <div className="author-avatar" style={{ background: 'rgba(59, 130, 246, 0.15)', color: 'var(--accent-blue)' }}>S</div>
+                  <div className="author-info">
+                    <div className="author-name">Senior Engineer</div>
+                    <div className="author-role">Sciforn Solutions</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="testimonial-card">
+                <div className="quote-mark">"</div>
+                <blockquote>
+                  "What sets Rohit apart is his ability to move fast without breaking things. He delivered a working multi-agent prototype in under two weeks that would have taken most teams a month. Excellent problem-solver."
+                </blockquote>
+                <div className="testimonial-author">
+                  <div className="author-avatar" style={{ background: 'rgba(139, 92, 246, 0.15)', color: 'var(--accent-purple)' }}>M</div>
+                  <div className="author-info">
+                    <div className="author-name">Project Lead</div>
+                    <div className="author-role">MDI AI Detection LLC</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════ RESUME ═══════════════════ */}
         <section id="resume" className="container">
           <div className="section-card" style={{ 
             display: 'flex', 
@@ -255,18 +344,21 @@ const App = () => {
             
             <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem' }}><span className="gradient-text">Full Resume & Experience</span></h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '600px', marginBottom: '2.5rem' }}>
-              Looking for a deep dive into my professional experience, education, and technical stack? View my complete ATS-friendly resume.
+              3 companies. 3 production AI systems. Deep dive into my professional experience, education, and technical stack.
             </p>
             
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
               <a href="resume.html" target="_blank" rel="noreferrer" className="btn btn-primary" style={{ padding: '12px 24px', fontSize: '1.1rem' }}>
                 <ExternalLink size={20} /> View Resume
               </a>
+              <a href="resume.html" download="Rohit_Mantha_AI_Engineer_Resume.html" className="btn btn-secondary" style={{ padding: '12px 24px', fontSize: '1.1rem' }}>
+                <Download size={20} /> Download
+              </a>
             </div>
           </div>
         </section>
 
-        {/* Contact Form Section */}
+        {/* ═══════════════════ CONTACT ═══════════════════ */}
         <section id="contact" className="container">
           <div className="section-card" style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h2 style={{ fontSize: '3rem', marginBottom: '0.5rem', textAlign: 'center' }}><span className="gradient-text">Let's Work Together</span></h2>
@@ -288,7 +380,7 @@ const App = () => {
               
               <div className="form-group" style={{ marginBottom: '2rem' }}>
                 <label className="form-label">Project Details / Message</label>
-                <textarea name="message" className="form-textarea" required placeholder="Tell me about your AI needs..."></textarea>
+                <textarea name="message" className="form-textarea" required placeholder="Tell me about your project or opportunity..."></textarea>
               </div>
 
               <input type="hidden" name="subject" value="New Inquiry from AI Portfolio!" />
